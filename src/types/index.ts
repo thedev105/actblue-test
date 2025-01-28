@@ -21,6 +21,7 @@ export type OrderLineItem = {
 };
 
 export type Order = {
+  id: string;
   lines: OrderLineItem[];
   firstName: string;
   lastName: string;

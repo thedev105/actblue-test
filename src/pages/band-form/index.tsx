@@ -20,6 +20,7 @@ export type BandFormProps = {
 export const BandForm = (props: BandFormProps) => {
   const { band, onSubmit } = props;
   const [order, setOrder] = React.useState<Order>({
+    id: band.id,
     firstName: "",
     lastName: "",
     address: "",
