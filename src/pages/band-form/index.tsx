@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Button,
   CalendarIcon,
@@ -12,6 +12,18 @@ import { TicketTypeItem } from "./ticket-type-item";
 import { centToDollar } from "src/utils/price";
 import { isOrderValid } from "src/utils/order";
 
+const defaultOrder: Order = {
+  id: "",
+  firstName: "",
+  lastName: "",
+  address: "",
+  cardNumber: "",
+  cardExp: "",
+  cardCvv: "",
+  lines: [],
+  total: 0,
+};
+
 export type BandFormProps = {
   band: Band;
   onSubmit: (order: Order) => void;
@@ -20,17 +32,15 @@ export type BandFormProps = {
 export const BandForm = (props: BandFormProps) => {
   const { band, onSubmit } = props;
   const [order, setOrder] = React.useState<Order>({
+    ...defaultOrder,
     id: band.id,
-    firstName: "",
-    lastName: "",
-    address: "",
-    cardNumber: "",
-    cardExp: "",
-    cardCvv: "",
     lines: [],
-    total: 0,
   });
   const date = convertEpochToDate(band.date);
+
+  useEffect(() => {
+    setOrder({ ...defaultOrder, id: band.id, lines: [] });
+  }, [band]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setOrder({ ...order, [e.target.name]: e.target.value });
@@ -96,7 +106,13 @@ export const BandForm = (props: BandFormProps) => {
         <form className="space-y-6" onSubmit={handleSubmit}>
           {band.ticketTypes.map((ticket) => (
             <div key={ticket.type}>
-              <TicketTypeItem ticketType={ticket} onChange={handleLineItem} />
+              <TicketTypeItem
+                ticketType={ticket}
+                quantity={
+                  order.lines.find((l) => l.type === ticket.type)?.quantity || 0
+                }
+                onChange={handleLineItem}
+              />
             </div>
           ))}
           <p className="flex justify-between items-center text-lg text-slate-700">

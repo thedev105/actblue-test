@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Input } from "src/components";
 import { TicketType } from "src/types";
@@ -6,19 +6,19 @@ import { centToDollar } from "src/utils/price";
 
 export type TicketTypeItemProps = {
   ticketType: TicketType;
+  quantity: number;
   onChange: (type: string, quantity: number) => void;
 };
 
 export const TicketTypeItem = ({
   ticketType,
+  quantity,
   onChange,
 }: TicketTypeItemProps) => {
-  const [quantity, setQuantity] = useState<number>(0);
   const price = centToDollar(ticketType.cost);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const quantity = parseInt(e.target.value, 10);
-    setQuantity(quantity);
     onChange(ticketType.type, quantity);
   };
 
