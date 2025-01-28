@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import { Input } from "src/components";
 import { TicketType } from "src/types";
