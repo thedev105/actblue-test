@@ -36,3 +36,4 @@ npm test
 - Tests for common components.
 - Sanitize the band description(it's HTML code).
 - Styling for band description.
+- Update website title, meta tags
