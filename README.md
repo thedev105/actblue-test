@@ -1,4 +1,10 @@
-# Create a form for touring bands!
+# ActBlue home task:
+
+## Git clone
+
+```
+git clone git@github.com:thedev105/actblue-test.git
+```
 
 ## How to install
 
